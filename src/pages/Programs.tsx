@@ -98,6 +98,41 @@ const Programs = () => {
           </div>
         </div>
       </section>
+
+      {/* Yearly Subscription */}
+      <section className="section-padding bg-secondary/20">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto text-center glass-card rounded-sm p-10 neon-border border"
+          >
+            <p className="text-primary font-heading text-sm tracking-[0.3em] uppercase mb-2">Best Value</p>
+            <h3 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Yearly Subscription
+            </h3>
+            <p className="text-muted-foreground font-body mb-6">
+              Full access to all gym facilities, equipment, group classes, and programs — 12 months, no limits.
+            </p>
+            <ul className="space-y-3 mb-8 text-left max-w-sm mx-auto">
+              {["Unlimited gym access", "All group classes included", "All training programs", "Locker & shower access", "Priority booking"].map((b, j) => (
+                <li key={j} className="flex items-center gap-3 text-foreground/80 font-body text-sm">
+                  <Check size={16} className="text-primary shrink-0" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <div className="mb-6">
+              <span className="font-heading text-5xl font-bold text-primary">2,499 MAD</span>
+              <span className="text-muted-foreground text-sm"> / year</span>
+            </div>
+            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading text-lg px-10 py-4 rounded-sm tracking-wider uppercase hover:shadow-[var(--neon-glow-strong)] transition-all duration-300 hover:scale-105">
+              Subscribe Now <ArrowRight size={20} />
+            </button>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
