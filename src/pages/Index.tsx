@@ -74,15 +74,6 @@ const Index = () => {
             </Link>
           </motion.div>
         </div>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex justify-center pt-2">
-            <div className="w-1.5 h-3 bg-primary rounded-full" />
-          </div>
-        </motion.div>
       </section>
 
       {/* Stats */}

@@ -15,13 +15,6 @@ const coaches = [
     bio: "IFBB Pro certified coach specializing in competition prep and advanced hypertrophy programs.",
   },
   {
-    img: coach2,
-    name: "Salma Benali",
-    specialty: "HIIT & Cardio",
-    experience: "8 years",
-    bio: "Certified personal trainer passionate about high-intensity training and women's fitness empowerment.",
-  },
-  {
     img: coach3,
     name: "Omar Tazi",
     specialty: "Weight Loss & Nutrition",
@@ -38,7 +31,7 @@ const Coaches = () => {
       <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeading title={t("coaches.title")} subtitle={t("coaches.subtitle")} />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {coaches.map((coach, i) => (
               <motion.div
                 key={i}
