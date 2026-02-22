@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionHeading from "@/components/SectionHeading";
+import WhatsAppOrderForm from "@/components/WhatsAppOrderForm";
 import { Check, ArrowRight } from "lucide-react";
 import programBB from "@/assets/program-bodybuilding.jpg";
 import programCardio from "@/assets/program-cardio.jpg";
@@ -40,6 +42,7 @@ const programs = [
 
 const Programs = () => {
   const { t } = useLanguage();
+  const [orderForm, setOrderForm] = useState<{ name: string; price: string; type: "program" | "subscription" } | null>(null);
 
   return (
     <div className="min-h-screen pt-20">
@@ -88,7 +91,10 @@ const Programs = () => {
                       <span className="font-heading text-3xl font-bold text-primary">{prog.price}</span>
                       <span className="text-muted-foreground text-sm">{t("programs.month")}</span>
                     </div>
-                    <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading px-6 py-3 rounded-sm tracking-wider uppercase hover:shadow-[var(--neon-glow-strong)] transition-all duration-300 hover:scale-105">
+                    <button
+                      onClick={() => setOrderForm({ name: t(prog.key), price: prog.price + t("programs.month"), type: "program" })}
+                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading px-6 py-3 rounded-sm tracking-wider uppercase hover:shadow-[var(--neon-glow-strong)] transition-all duration-300 hover:scale-105"
+                    >
                       {t("programs.book")} <ArrowRight size={18} />
                     </button>
                   </div>
@@ -127,12 +133,23 @@ const Programs = () => {
               <span className="font-heading text-5xl font-bold text-primary">2,499 MAD</span>
               <span className="text-muted-foreground text-sm"> / year</span>
             </div>
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading text-lg px-10 py-4 rounded-sm tracking-wider uppercase hover:shadow-[var(--neon-glow-strong)] transition-all duration-300 hover:scale-105">
+            <button
+              onClick={() => setOrderForm({ name: "Yearly Subscription — Full Access", price: "2,499 MAD/year", type: "subscription" })}
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading text-lg px-10 py-4 rounded-sm tracking-wider uppercase hover:shadow-[var(--neon-glow-strong)] transition-all duration-300 hover:scale-105"
+            >
               Subscribe Now <ArrowRight size={20} />
             </button>
           </motion.div>
         </div>
       </section>
+
+      <WhatsAppOrderForm
+        isOpen={!!orderForm}
+        onClose={() => setOrderForm(null)}
+        itemName={orderForm?.name || ""}
+        itemPrice={orderForm?.price}
+        itemType={orderForm?.type || "program"}
+      />
     </div>
   );
 };

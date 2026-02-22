@@ -108,7 +108,7 @@ const Contact = () => {
 
               <div className="rounded-sm overflow-hidden h-64 md:h-80">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.8477506689036!2d-7.6191!3d33.5731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM0JzIzLjIiTiA3wrAzNycwOC44Ilc!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3397.0!2d-13.1817618!3d27.1265478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc377300585c426b%3A0xed8fdebf3a2b5026!2sVictory%20gym!5e0!3m2!1sen!2sma!4v1700000000000!5m2!1sen!2sma"
                   width="100%"
                   height="100%"
                   style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
