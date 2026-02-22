@@ -1,1 +1,9 @@
-{}
+{
+  "/coaches/page": "app/coaches/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/gallery/page": "app/gallery/page.js",
+  "/shop/page": "app/shop/page.js",
+  "/programs/page": "app/programs/page.js"
+}
