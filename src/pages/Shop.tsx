@@ -2,7 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionHeading from "@/components/SectionHeading";
-import { ShoppingCart, Check } from "lucide-react";
+import WhatsAppOrderForm from "@/components/WhatsAppOrderForm";
+import { ShoppingCart } from "lucide-react";
 import productProtein from "@/assets/product-protein.jpg";
 import productCreatine from "@/assets/product-creatine.jpg";
 import productPre from "@/assets/product-preworkout.jpg";
@@ -22,20 +23,9 @@ const categories = ["All", "Proteins", "Creatine", "Pre-workout", "Accessories"]
 const Shop = () => {
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("All");
-  const [addedItems, setAddedItems] = useState<Set<number>>(new Set());
+  const [orderForm, setOrderForm] = useState<{ name: string; price: string } | null>(null);
 
   const filtered = activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory);
-
-  const handleAdd = (idx: number) => {
-    setAddedItems((prev) => new Set(prev).add(idx));
-    setTimeout(() => {
-      setAddedItems((prev) => {
-        const n = new Set(prev);
-        n.delete(idx);
-        return n;
-      });
-    }, 1500);
-  };
 
   return (
     <div className="min-h-screen pt-20">
@@ -61,7 +51,7 @@ const Shop = () => {
 
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
-              {filtered.map((product, i) => (
+              {filtered.map((product) => (
                 <motion.div
                   key={product.name}
                   layout
@@ -84,18 +74,10 @@ const Shop = () => {
                     <div className="flex items-center justify-between mt-4">
                       <span className="font-heading text-xl font-bold text-primary">{product.price}</span>
                       <button
-                        onClick={() => handleAdd(i)}
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm font-body text-sm font-semibold transition-all duration-300 ${
-                          addedItems.has(i)
-                            ? "bg-primary/20 text-primary border border-primary"
-                            : "bg-primary text-primary-foreground hover:shadow-[var(--neon-glow)]"
-                        }`}
+                        onClick={() => setOrderForm({ name: product.name, price: product.price })}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-sm font-body text-sm font-semibold transition-all duration-300 bg-primary text-primary-foreground hover:shadow-[var(--neon-glow)]"
                       >
-                        {addedItems.has(i) ? (
-                          <><Check size={16} /> {t("shop.added")}</>
-                        ) : (
-                          <><ShoppingCart size={16} /> {t("shop.addToCart")}</>
-                        )}
+                        <ShoppingCart size={16} /> {t("shop.addToCart")}
                       </button>
                     </div>
                   </div>
@@ -105,6 +87,14 @@ const Shop = () => {
           </motion.div>
         </div>
       </section>
+
+      <WhatsAppOrderForm
+        isOpen={!!orderForm}
+        onClose={() => setOrderForm(null)}
+        itemName={orderForm?.name || ""}
+        itemPrice={orderForm?.price}
+        itemType="product"
+      />
     </div>
   );
 };
