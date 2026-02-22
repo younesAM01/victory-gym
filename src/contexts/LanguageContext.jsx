@@ -1,0 +1,160 @@
+"use client";
+import React, { createContext, useContext, useState } from "react";
+
+const translations = {
+  en: {
+    "nav.home": "Home",
+    "nav.programs": "Programs",
+    "nav.shop": "Shop",
+    "nav.coaches": "Coaches",
+    "nav.gallery": "Gallery",
+    "nav.contact": "Contact",
+    "hero.title1": "TRAIN HARD.",
+    "hero.title2": "BECOME STRONGER.",
+    "hero.subtitle": "Morocco's Premier Fitness Destination",
+    "hero.join": "Join Now",
+    "hero.explore": "Explore Programs",
+    "stats.members": "Active Members",
+    "stats.coaches": "Expert Coaches",
+    "stats.transformations": "Transformations",
+    "stats.years": "Years Experience",
+    "programs.title": "OUR PROGRAMS",
+    "programs.subtitle": "Choose Your Path to Victory",
+    "programs.bodybuilding": "Bodybuilding",
+    "programs.cardio": "Cardio & HIIT",
+    "programs.coaching": "Personal Coaching",
+    "programs.weightloss": "Weight Loss",
+    "programs.book": "Book Now",
+    "programs.month": "/month",
+    "testimonials.title": "SUCCESS STORIES",
+    "cta.title": "READY TO START YOUR TRANSFORMATION?",
+    "cta.subtitle": "Join Victory Gym today and become the best version of yourself.",
+    "cta.button": "Start Your Journey",
+    "shop.title": "VICTORY SHOP",
+    "shop.addToCart": "Add to Cart",
+    "shop.added": "Added!",
+    "coaches.title": "OUR COACHES",
+    "coaches.subtitle": "Meet the Experts Behind Your Success",
+    "gallery.title": "GALLERY",
+    "contact.title": "CONTACT US",
+    "contact.name": "Your Name",
+    "contact.email": "Your Email",
+    "contact.message": "Your Message",
+    "contact.send": "Send Message",
+    "contact.hours": "Opening Hours",
+    "contact.address": "Address",
+    "footer.rights": "All rights reserved.",
+    "footer.tagline": "Train Hard. Become Stronger.",
+  },
+  fr: {
+    "nav.home": "Accueil",
+    "nav.programs": "Programmes",
+    "nav.shop": "Boutique",
+    "nav.coaches": "Coachs",
+    "nav.gallery": "Galerie",
+    "nav.contact": "Contact",
+    "hero.title1": "ENTRAÎNE-TOI DUR.",
+    "hero.title2": "DEVIENS PLUS FORT.",
+    "hero.subtitle": "La Destination Fitness Premium du Maroc",
+    "hero.join": "Rejoindre",
+    "hero.explore": "Voir les Programmes",
+    "stats.members": "Membres Actifs",
+    "stats.coaches": "Coachs Experts",
+    "stats.transformations": "Transformations",
+    "stats.years": "Ans d'Expérience",
+    "programs.title": "NOS PROGRAMMES",
+    "programs.subtitle": "Choisissez Votre Chemin vers la Victoire",
+    "programs.bodybuilding": "Musculation",
+    "programs.cardio": "Cardio & HIIT",
+    "programs.coaching": "Coaching Personnel",
+    "programs.weightloss": "Perte de Poids",
+    "programs.book": "Réserver",
+    "programs.month": "/mois",
+    "testimonials.title": "HISTOIRES DE RÉUSSITE",
+    "cta.title": "PRÊT À COMMENCER VOTRE TRANSFORMATION ?",
+    "cta.subtitle": "Rejoignez Victory Gym et devenez la meilleure version de vous-même.",
+    "cta.button": "Commencer",
+    "shop.title": "BOUTIQUE VICTORY",
+    "shop.addToCart": "Ajouter au Panier",
+    "shop.added": "Ajouté !",
+    "coaches.title": "NOS COACHS",
+    "coaches.subtitle": "Les Experts Derrière Votre Succès",
+    "gallery.title": "GALERIE",
+    "contact.title": "CONTACTEZ-NOUS",
+    "contact.name": "Votre Nom",
+    "contact.email": "Votre Email",
+    "contact.message": "Votre Message",
+    "contact.send": "Envoyer",
+    "contact.hours": "Horaires d'ouverture",
+    "contact.address": "Adresse",
+    "footer.rights": "Tous droits réservés.",
+    "footer.tagline": "Entraîne-toi dur. Deviens plus fort.",
+  },
+  ar: {
+    "nav.home": "الرئيسية",
+    "nav.programs": "البرامج",
+    "nav.shop": "المتجر",
+    "nav.coaches": "المدربين",
+    "nav.gallery": "المعرض",
+    "nav.contact": "اتصل بنا",
+    "hero.title1": "تمرّن بجدّ.",
+    "hero.title2": "كن أقوى.",
+    "hero.subtitle": "الوجهة الرائدة للياقة البدنية في المغرب",
+    "hero.join": "انضم الآن",
+    "hero.explore": "اكتشف البرامج",
+    "stats.members": "أعضاء نشطين",
+    "stats.coaches": "مدربين خبراء",
+    "stats.transformations": "تحولات",
+    "stats.years": "سنوات خبرة",
+    "programs.title": "برامجنا",
+    "programs.subtitle": "اختر طريقك نحو النصر",
+    "programs.bodybuilding": "كمال الأجسام",
+    "programs.cardio": "كارديو و HIIT",
+    "programs.coaching": "تدريب شخصي",
+    "programs.weightloss": "فقدان الوزن",
+    "programs.book": "احجز الآن",
+    "programs.month": "/شهر",
+    "testimonials.title": "قصص النجاح",
+    "cta.title": "هل أنت مستعد لبدء تحولك؟",
+    "cta.subtitle": "انضم إلى Victory Gym اليوم وكن أفضل نسخة من نفسك.",
+    "cta.button": "ابدأ رحلتك",
+    "shop.title": "متجر Victory",
+    "shop.addToCart": "أضف إلى السلة",
+    "shop.added": "تمت الإضافة!",
+    "coaches.title": "مدربونا",
+    "coaches.subtitle": "تعرف على الخبراء وراء نجاحك",
+    "gallery.title": "المعرض",
+    "contact.title": "اتصل بنا",
+    "contact.name": "اسمك",
+    "contact.email": "بريدك الإلكتروني",
+    "contact.message": "رسالتك",
+    "contact.send": "إرسال",
+    "contact.hours": "ساعات العمل",
+    "contact.address": "العنوان",
+    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.tagline": "تمرّن بجدّ. كن أقوى.",
+  },
+};
+
+const LanguageContext = createContext(undefined);
+
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState("en");
+
+  const t = (key) => translations[language]?.[key] || key;
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      <div dir={language === "ar" ? "rtl" : "ltr"}>
+        {children}
+      </div>
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) throw new Error("useLanguage must be used within LanguageProvider");
+  return context;
+};
+

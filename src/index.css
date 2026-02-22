@@ -50,6 +50,10 @@
     --red-glow: 0 0 20px hsl(0 85% 55% / 0.4), 0 0 40px hsl(0 85% 55% / 0.2);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border;
   }
@@ -57,6 +61,8 @@
   body {
     @apply bg-background text-foreground font-body;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -101,6 +107,7 @@
 
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+    will-change: transform;
   }
 
   .whatsapp-pulse {
@@ -115,6 +122,28 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* GPU-accelerated image transitions */
+img {
+  content-visibility: auto;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
